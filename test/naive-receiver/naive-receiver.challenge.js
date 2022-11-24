@@ -30,6 +30,7 @@ describe('[Challenge] Naive receiver', function () {
     });
 
     it('Exploit', async function () {
+        // TODO
         /** CODE YOUR EXPLOIT HERE */   
     });
 

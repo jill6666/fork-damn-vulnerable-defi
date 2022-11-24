@@ -24,6 +24,7 @@ describe('[Challenge] Side entrance', function () {
     });
 
     it('Exploit', async function () {
+        // TODO
         /** CODE YOUR EXPLOIT HERE */
     });
 

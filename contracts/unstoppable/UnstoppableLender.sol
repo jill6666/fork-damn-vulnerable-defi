@@ -30,6 +30,7 @@ contract UnstoppableLender is ReentrancyGuard {
         poolBalance = poolBalance + amount;
     }
 
+    // TODO:
     function flashLoan(uint256 borrowAmount) external nonReentrant {
         require(borrowAmount > 0, "Must borrow at least one token");
 
@@ -37,6 +38,10 @@ contract UnstoppableLender is ReentrancyGuard {
         require(balanceBefore >= borrowAmount, "Not enough tokens in pool");
 
         // Ensured by the protocol via the `depositTokens` function
+        /** 
+         * 怪怪的，如果沒有成立就會被 revert 
+         * 用其他方式轉錢進來，讓 poolBalance 不等於 balanceBefore
+        */
         assert(poolBalance == balanceBefore);
         
         damnValuableToken.transfer(msg.sender, borrowAmount);

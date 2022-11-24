@@ -65,6 +65,7 @@ describe('[Challenge] The rewarder', function () {
     });
 
     it('Exploit', async function () {
+        // TODO
         /** CODE YOUR EXPLOIT HERE */
     });
 

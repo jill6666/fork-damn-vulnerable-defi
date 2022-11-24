@@ -28,6 +28,7 @@ describe('[Challenge] Truster', function () {
     });
 
     it('Exploit', async function () {
+        // TODO
         /** CODE YOUR EXPLOIT HERE  */
     });
 
