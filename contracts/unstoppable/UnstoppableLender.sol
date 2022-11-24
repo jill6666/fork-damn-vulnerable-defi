@@ -30,7 +30,6 @@ contract UnstoppableLender is ReentrancyGuard {
         poolBalance = poolBalance + amount;
     }
 
-    // TODO:
     function flashLoan(uint256 borrowAmount) external nonReentrant {
         require(borrowAmount > 0, "Must borrow at least one token");
 
