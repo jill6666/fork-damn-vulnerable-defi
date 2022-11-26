@@ -24,6 +24,9 @@ contract NaiveReceiverLenderPool is ReentrancyGuard {
         require(balanceBefore >= borrowAmount, "Not enough ETH in pool");
 
 
+        /** 只要不是 EOA 就可以 call 這就是問題所在，任何人（合約）都可以呼叫讓 contract pay the flash loan fee 
+         * 所以一直重複執行 flashLoan() 直到餘額變成零就破關了
+        */
         require(borrower.isContract(), "Borrower must be a deployed contract");
         // Transfer ETH and handle control to receiver
         borrower.functionCallWithValue(
