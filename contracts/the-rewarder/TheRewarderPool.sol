@@ -72,6 +72,7 @@ contract TheRewarderPool {
         uint256 totalDeposits = accToken.totalSupplyAt(lastSnapshotIdForRewards);
         uint256 amountDeposited = accToken.balanceOfAt(msg.sender, lastSnapshotIdForRewards);
 
+        /** there is no check for how long we have deposited our tokens */
         if (amountDeposited > 0 && totalDeposits > 0) {
             rewards = (amountDeposited * 100 * 10 ** 18) / totalDeposits;
 
@@ -84,6 +85,7 @@ contract TheRewarderPool {
         return rewards;     
     }
 
+    /** to prevent the double spend attack */
     function _recordSnapshot() private {
         lastSnapshotIdForRewards = accToken.snapshot();
         lastRecordedSnapshotTimestamp = block.timestamp;

